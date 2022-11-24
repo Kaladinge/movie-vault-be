@@ -25,6 +25,7 @@ public class Movie {
     private int movie_age;
 
     //Relations
+    /*
     @ManyToMany
     private Set<Actor> actors;
     @ManyToOne
@@ -33,4 +34,6 @@ public class Movie {
     @ManyToOne
     @JoinColumn(name = "director_id")
     private Director director;
+
+     */
 }

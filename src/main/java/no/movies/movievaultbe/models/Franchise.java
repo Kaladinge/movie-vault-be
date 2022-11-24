@@ -16,9 +16,12 @@ public class Franchise {
     @Column(length = 40, nullable = false)
     private String fran_name;
     @Column(length = 60)
-    private String fran_description;
+    private String franchise_description;
 
     //Relations
+    /*
     @OneToMany(mappedBy = "franchise")
     private Set<Movie> movies;
+
+     */
 }

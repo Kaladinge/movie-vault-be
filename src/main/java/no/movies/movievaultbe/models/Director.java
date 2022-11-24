@@ -19,6 +19,9 @@ public class Director {
     private String director_name;
 
     //Relations
+    /*
     @OneToMany(mappedBy = "director")
     private Set<Movie> movies;
+
+     */
 }

@@ -19,6 +19,9 @@ public class Actor {
     private String actor_description;
 
     //Relations
+    /*
     @ManyToMany(mappedBy = "actors")
     private Set<Movie> movies;
+
+     */
 }

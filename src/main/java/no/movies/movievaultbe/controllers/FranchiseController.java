@@ -4,79 +4,78 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import no.movies.movievaultbe.models.Director;
-import no.movies.movievaultbe.repositories.DirectorRepository;
+import no.movies.movievaultbe.models.Franchise;
+import no.movies.movievaultbe.repositories.FranchiseRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "api/v1/directors")
-public class DirectorController {
+@RequestMapping(value = "api/v1/franchises")
+public class FranchiseController {
 
-    private final DirectorRepository directorRepository;
+    private final FranchiseRepository franchiseRepository;
 
-    public DirectorController(DirectorRepository directorRepository) {
-        this.directorRepository = directorRepository;
+    public FranchiseController(FranchiseRepository franchiseRepository) {
+        this.franchiseRepository = franchiseRepository;
     }
 
-    @Operation(summary = "Get all directors")
+    @Operation(summary = "Get all franchises")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                description = "Success",
-                content = @Content)
+                    description = "Success",
+                    content = @Content)
     })
     @GetMapping
     public ResponseEntity findAll() {
-        return ResponseEntity.ok(directorRepository.findAll());
+        return ResponseEntity.ok(franchiseRepository.findAll());
     }
 
-    @Operation(summary = "Get director by ID")
+    @Operation(summary = "Get franchise by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Success",
                     content = @Content),
             @ApiResponse(responseCode = "404",
-                    description = "Failed to fetch director by ID",
+                    description = "Failed to fetch franchise by ID",
                     content = @Content)
     })
     @GetMapping("{id}")
     public ResponseEntity findOne(@PathVariable int id) {
-        return ResponseEntity.ok(directorRepository.findById(id));
+        return ResponseEntity.ok(franchiseRepository.findById(id));
     }
 
-
-    @Operation(summary = "Add new director")
+    @Operation(summary = "Add new franchise")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Success",
                     content = @Content),
             @ApiResponse(responseCode = "404",
-                    description = "Failed to add new director",
+                    description = "Failed to add new franchise",
                     content = @Content)
     })
     @PostMapping
-    public ResponseEntity add(@RequestBody Director director) {
-        Director direc = directorRepository.save(director);
-        URI location = URI.create("directors/" + direc.getDirector_id());
+    public ResponseEntity add(@RequestBody Franchise franchise) {
+        Franchise fran = franchiseRepository.save(franchise);
+        URI location = URI.create("franchises/" + fran.getFran_id());
         return ResponseEntity.created(location).build();
     }
 
-    @Operation(summary = "Update existing director")
+    @Operation(summary = "Update existing franchise")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Success",
                     content = @Content),
             @ApiResponse(responseCode = "404",
-                    description = "Failed to update existing director",
+                    description = "Failed to update existing franchise",
                     content = @Content)
     })
     @PutMapping("{id}")
-    public ResponseEntity update(@RequestBody Director director, @PathVariable int id) {
-        if (id != director.getDirector_id())
+    public ResponseEntity update(@RequestBody Franchise franchise, @PathVariable int id) {
+        if (id != franchise.getFran_id())
             return ResponseEntity.badRequest().build();
-        directorRepository.save(director);
+        franchiseRepository.save(franchise);
         return ResponseEntity.noContent().build();
     }
 }
